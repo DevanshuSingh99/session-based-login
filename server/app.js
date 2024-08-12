@@ -9,7 +9,7 @@ const errorHandlerMiddleware = require("./middleware/errorHandlerMiddleware");
 const notFoundMiddleware = require("./middleware/notFoundMiddleware");
 
 // Middleware for parsing JSON and handling HTTP requests
-app.use(cors({ origin: ["*", "https://tfgadmin.tfggames.com"] }));
+app.use(cors({ origin: ["*"] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(commonResponseMiddleware);
