@@ -1,3 +1,20 @@
+## Project Setup and Execution
+
+### Prerequisites
+* Node.js and npm (or yarn) installed.
+* MongoDB and Redis servers running and accessible.
+
+### Project Initialization
+1. Create a new project directory:
+   ```bash
+   cd server
+   npm i
+   touch .env
+2. Populate ENV file from .env.example
+3. To run the server
+    ```bash
+    node app.js
+
 ## API Documentation
 
 ### Base Routes
