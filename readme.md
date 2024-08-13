@@ -88,3 +88,9 @@
 - **Validation:** Uses `adminValidator.getUserDetails` for input validation.
 - **Response:** Returns a success message upon successful session invalidation.
 - **Handler:** `adminController.invalidateUserSession`
+
+## Additional TODOs:
+* Add unit test cases using mocha/jest.
+* Create swagger/postman api collection.
+* OTP based login.
+* Adhere better coding standards : Use consistent formatting, naming conventions, and code style.
