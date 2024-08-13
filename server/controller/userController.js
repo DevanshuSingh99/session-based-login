@@ -1,7 +1,10 @@
 const User = require("../model/UserModel");
 const Session = require("../model/SessionModel");
 const helperFunctions = require("../utils/helperFunctions");
-const { createLoginReport, createAndStoreToken } = require("../service/commonService");
+const {
+  createLoginReport,
+  createAndStoreToken,
+} = require("../service/commonService");
 
 const userController = {
   createUser: async (req, res) => {
@@ -29,9 +32,16 @@ const userController = {
       newUser.active_session = newSession._id;
       newUser.sessions.push(newSession._id);
 
-      await Promise.all([newUser.save(), newSession.save(), createLoginReport({ userId: newUser._id, sessionId: newSession._id })]);
+      await Promise.all([
+        newUser.save(),
+        newSession.save(),
+        createLoginReport({ userId: newUser._id, sessionId: newSession._id }),
+      ]);
 
-      const token = await createAndStoreToken({ userId: newUser._id, session: newSession });
+      const token = await createAndStoreToken({
+        userId: newUser._id,
+        session: newSession,
+      });
 
       res.apiResponse(200, { token });
     } catch (error) {
@@ -44,13 +54,18 @@ const userController = {
 
       let user = await User.findOne({ mobile });
 
-      if (!user) return res.errorResponse(400, "User not found. Please signup.");
+      if (!user)
+        return res.errorResponse(400, "User not found. Please signup.");
 
       // using user_name as password
-      if (user.user_name !== user_name) return res.errorResponse(400, "User name does not match");
+      if (user.user_name !== user_name)
+        return res.errorResponse(400, "User name does not match");
 
       const userAgent = req.headers["user-agent"];
-      let userSession = await Session.findOne({ user_id: user._id, user_agent: userAgent });
+      let userSession = await Session.findOne({
+        user_id: user._id,
+        user_agent: userAgent,
+      });
 
       if (!userSession) {
         userSession = new Session({
@@ -81,7 +96,9 @@ const userController = {
   getUser: async (req, res) => {
     try {
       const { userId } = req.user;
-      const data = await User.findById(userId).populate("active_session sessions").lean();
+      const data = await User.findById(userId)
+        .populate("active_session sessions")
+        .lean();
       res.apiResponse(200, { user: data });
     } catch (error) {
       res.errorResponse(500, error?.message, error?.stack);

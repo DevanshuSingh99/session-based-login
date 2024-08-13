@@ -14,6 +14,11 @@ const loginReportSchema = new mongoose.Schema({
   },
 });
 
-const LoginReport = mongoose.model(CONSTANTS.SCHEMA_NAMES.LOGIN_REPORT, loginReportSchema);
+// Index user_id
+loginReportSchema.index({ user_id: 1 });
+const LoginReport = mongoose.model(
+  CONSTANTS.SCHEMA_NAMES.LOGIN_REPORT,
+  loginReportSchema
+);
 
 module.exports = LoginReport;

@@ -15,6 +15,9 @@ const sessionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Index user_id and user_agent
+sessionSchema.index({ user_id: 1, user_agent: 1 });
+
 const Session = mongoose.model(CONSTANTS.SCHEMA_NAMES.SESSION, sessionSchema);
 
 module.exports = Session;
